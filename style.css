@@ -1,0 +1,85 @@
+.opinions_wrapper {
+  position: absolute;
+  left: 20px;
+  bottom: 20px;
+  background: #fff;
+  box-shadow: 0 0 19px 0 rgb(0 0 0 / 27%);
+  width: calc(100vw - 20px);
+  max-width: 318px;
+  border-radius: 15px;
+  overflow: hidden;
+  padding: 15px;
+  display: none;
+}
+.opinions-top {
+  margin: 0;
+  padding: 0;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+  overflow-y: scroll;
+  height: 50vh;
+}
+#opinions_badge {
+  width: 80px;
+  min-height: 113px;
+  box-shadow: 0 0 19px 0 rgba(0, 0, 0, 0.27);
+  border-radius: 50px 50px 0 15px;
+  position: fixed;
+  z-index: 100;
+  left: 10px;
+  bottom: 10px;
+  transition: box-shadow 0.2s, opacity 0.2s, visibility 0.2s;
+  background: #fff;
+  cursor: pointer;
+  padding: 5px;
+}
+.opinions_badge__close {
+  background: #000;
+  position: absolute;
+  top: 0;
+  right: 0;
+  border-bottom-left-radius: 100%;
+  width: 43px;
+  height: 43px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: width 0.2s, height 0.2s;
+}
+.opinions_badge__more {
+  background: #000;
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  border-top-left-radius: 100%;
+  width: 16px;
+  height: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: width 0.2s, height 0.2s;
+}
+.oopinions_badge__avg {
+  font-size: 11px;
+  display: block;
+  text-align: center;
+  letter-spacing: 0.05em;
+  margin: 4px 0;
+  font-weight: bold;
+}
+.opinions_badge__meta {
+  display: block;
+  text-align: center;
+}
+
+.opinions_badge__avg {
+  font-size: 13px;
+  margin: 4px 0 2px;
+}
+.opinions_badge__all {
+  display: block;
+  text-align: center;
+  font-size: 10px;
+  letter-spacing: 0.05em;
+}
