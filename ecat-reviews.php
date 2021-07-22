@@ -20,32 +20,18 @@ if (! function_exists('add_action')) {
 
 class EcatReviews
 {
-    function __construct() {
-        add_action('init', array($this, 'custom_post_type'));
-    }
 
     function register() {
         add_action('wp_enqueue_scripts', array($this, 'enqueue'));
     }
 
     function activate(){
-        $this->custom_post_type();
-
         flush_rewrite_rules();
     }
 
     function deactivate(){
 
     }
-
-    function custom_post_type() {
-        register_post_type('review', [
-            'public' => true, 
-            'label' => 'Ec-at reviews',
-            'menu_icon' => 'dashicons-star-empty'
-        ]);
-    }
-
     function enqueue() {
         wp_enqueue_style(
             'ecatreviewsstyle',
@@ -67,11 +53,9 @@ if(class_exists('EcatReviews')){
 function reviewsBadge() {
     global $wpdb;
     $allPositiveResults = $wpdb->get_results("SELECT review_id, rating, name, avatar, post_content FROM wp_glsr_ratings JOIN wp_posts WHERE wp_glsr_ratings.review_id = wp_posts.ID AND wp_glsr_ratings.is_approved = 1 AND rating >= 4;");
-    $allResults = $wpdb->get_results("SELECT review_id, rating, name, avatar, post_content FROM wp_glsr_ratings JOIN wp_posts WHERE wp_glsr_ratings.review_id = wp_posts.ID AND wp_glsr_ratings.is_approved = 1 AND rating >= 0;");
     
     // counting all results
     $positiveReviewslength = count($allPositiveResults);
-    $allReviewsLength = count($allResults);
     $sum = 0;
 
     for($i=0; $i<=$positiveReviewslength; $i++) {
@@ -86,12 +70,12 @@ function reviewsBadge() {
     <div id="opinions_badge" class="opinons-badge">
     <div class="opinions_badge__wrapper">
         <div class="opinions_badge__img">
-            <img src="https://manito.pl/data/include/cms/trustedOpinions/badge_opinion_pl.svg" alt="opinie-img">
+            <img src="https://misiule.pl/wp-content/uploads/2021/07/ikonka-opinie.png" alt="opinie-img">
         </div>
         <div class="opinions_badge__info">
             <span class="opinions_badge__meta opinions_badge__stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></span>
             <span class="opinions_badge__meta opinions_badge__avg">'.$ratingavg.' / 5.00</span>
-            <span class="opinions_badge__meta opinions_badge__all">'.$allReviewsLength.' opinii</span>
+            <span class="opinions_badge__meta opinions_badge__all">'.$positiveReviewslength.' opinii</span>
         </div>
         <div class="opinions_badge__more" id="opinions-badge-more"><i class="fas fa-arrow-right"></i></div>
     </div>
@@ -125,7 +109,7 @@ function reviewsBadge() {
     echo '
         </div>
         <div class="opinions-bottom">
-            <p class="bottom-avg"><a href="https://misiule.pl/opinie/">Dodaj opinie (wszystkich: '.$reviewslength.')</a></p>
+            <p class="bottom-avg"><a href="https://misiule.pl/opinie/">Dodaj opinie (wszystkich: '.$positiveReviewslength.')</a></p>
         </div>
             <div class="opinions_badge__close" id="close-button"><i class="fas fa-times"></i></div>
     </div>';

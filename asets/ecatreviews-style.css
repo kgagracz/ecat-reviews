@@ -75,7 +75,7 @@
   }
 
   .opinions_badge__close {
-    background: #000;
+    background: #79c9a7;
     position: absolute;
     top: 0;
     right: 0;
@@ -93,7 +93,7 @@
     height: 50px;
   }
   .opinions_badge__more {
-    background: #000;
+    background: #79c9a7;
     position: absolute;
     bottom: 0;
     right: 0;
@@ -104,7 +104,14 @@
     align-items: center;
     justify-content: center;
     transition: width 0.2s, height 0.2s;
+    padding: 5px;
   }
+
+  .fa-arrow-right,
+  .fa-times {
+    color: white;
+  }
+
   .oopinions_badge__avg {
     font-size: 11px;
     display: block;
@@ -129,3 +136,20 @@
     letter-spacing: 0.05em;
   }
   
+/* media queries */
+
+/* Smartphones */
+
+@media (max-width: 767px) {
+  
+  #opinions_badge {
+    min-height: 20px;
+    height: auto;
+    bottom: 20px;
+    right: 20px;
+    border-radius: 5px;
+  }
+  .opinions_badge__img {
+    display: none;
+  }
+}
