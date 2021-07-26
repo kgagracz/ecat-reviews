@@ -52,14 +52,14 @@ if(class_exists('EcatReviews')){
 
 function reviewsBadge() {
     global $wpdb;
-    $allPositiveResults = $wpdb->get_results("SELECT review_id, rating, name, avatar, post_content FROM wp_glsr_ratings JOIN wp_posts WHERE wp_glsr_ratings.review_id = wp_posts.ID AND wp_glsr_ratings.is_approved = 1 AND rating >= 4;");
-    
+    $allResults = [];
+    $allResults = $wpdb->get_results("SELECT review_id, rating, name, avatar, post_content FROM wp_glsr_ratings JOIN wp_posts WHERE wp_glsr_ratings.review_id = wp_posts.ID AND wp_glsr_ratings.is_approved = 1 AND rating >= 4;");
     // counting all results
-    $positiveReviewslength = count($allPositiveResults);
+    $positiveReviewslength = count($allResults);
     $sum = 0;
 
     for($i=0; $i<=$positiveReviewslength; $i++) {
-        $sum += $allPositiveResults[$i]->rating;
+        $sum += $allResults[$i]->rating;
     }
 
     //counting avg of reviews points
@@ -87,16 +87,16 @@ function reviewsBadge() {
             global $wpdb;
     // counting all results
 
-    $reviewslength = count($allPositiveResults);
+    $reviewslength = count($allResults);
     $sum = 0;
 
     for($i=0; $i<=$reviewslength; $i++) {
-        $sum = $sum + $allPositiveResults[$i]->rating;
+        $sum = $sum + $allResults[$i]->rating;
     }
 
     //counting avg of reviews points
     $ratingavg = $sum / $reviewslength;
-    foreach($allPositiveResults as $review) {
+    foreach($allResults as $review) {
         echo '
             <div class="opinion">
                 <h4 class="opinions_name">Autor: '. $review->name .'</h3>
@@ -106,31 +106,17 @@ function reviewsBadge() {
             </div>
         ';
     }
+    $homeUrl = get_home_url();
     echo '
         </div>
         <div class="opinions-bottom">
-            <p class="bottom-avg"><a href="https://misiule.pl/opinie/">Dodaj opinie (wszystkich: '.$positiveReviewslength.')</a></p>
+            <p class="bottom-avg"><a href="'.$homeUrl.'/opinie">Dodaj opinie (wszystkich: '.$positiveReviewslength.')</a></p>
         </div>
             <div class="opinions_badge__close" id="close-button"><i class="fas fa-times"></i></div>
     </div>';
 }
 
-function reviewsPage() {
-    foreach($allPositiveResults as $review) {
-        echo '
-            <div class="opinion">
-                <h4 class="opinions_name">Autor: '. $review->name .'</h3>
-                <p class="date"></p>
-                <p class="opinions_rating">Ocena: '. $review->rating .'/5</p>
-                <p class="opinion_content">&bdquo;'.$review->post_content.'&ldquo;</p>
-            </div>
-        ';
-    }
-}
-
 add_shortcode('ecat-reviews-badge', 'reviewsBadge');
-add_shortcode('ecat-reviews', 'reviewsPage');
-
 
 //activation
 register_activation_hook(__FILE__, array($ecatReviews, 'activate'));
